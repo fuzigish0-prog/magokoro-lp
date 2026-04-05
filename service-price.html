@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>料金・サービス一覧｜セカンドライフ株式会社</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #3a9e5f;
+    --green-light: #e8f5ee;
+    --green-mid: #c1e8cf;
+    --green-dark: #236b3e;
+    --orange: #e07c2a;
+    --cream: #faf8f3;
+    --text: #2a2a2a;
+    --text-mid: #555;
+    --text-light: #888;
+    --border: #e0ede5;
+    --shadow: 0 2px 16px rgba(58,158,95,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(160deg, var(--green-dark) 0%, var(--green) 100%);
+    padding: 28px 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    right: -30px; top: -30px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .header-logo {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 14px;
+  }
+  .header-logo .leaf { font-size: 22px; }
+  .header-logo .brand { color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 500; letter-spacing: 0.08em; }
+  .header h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 22px;
+    color: #fff;
+    font-weight: 700;
+    line-height: 1.4;
+    position: relative;
+  }
+  .header p {
+    margin-top: 8px;
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    line-height: 1.8;
+    position: relative;
+  }
+
+  /* NOTICE */
+  .notice-band {
+    background: var(--orange);
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    padding: 8px 16px;
+    font-weight: 500;
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    display: flex;
+    overflow-x: auto;
+    gap: 6px;
+    padding: 14px 16px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    background: var(--green-light);
+    color: var(--green-dark);
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-tab.active { background: var(--green); color: #fff; }
+
+  /* SECTIONS */
+  .section { padding: 0 16px; margin-top: 20px; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .section-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    box-shadow: 0 3px 8px rgba(58,158,95,0.3);
+  }
+  .section-title { font-family: 'Noto Serif JP', serif; font-size: 17px; font-weight: 700; color: var(--green-dark); }
+  .section-sub { font-size: 11px; color: var(--text-light); margin-top: 1px; }
+
+  /* CARD */
+  .card { background: #fff; border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 12px; }
+  .card-title { background: var(--green-light); padding: 10px 16px; font-size: 13px; font-weight: 700; color: var(--green-dark); border-left: 3px solid var(--green); }
+
+  /* PRICE ROWS */
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .price-row:last-child { border-bottom: none; }
+  .price-row:active { background: var(--green-light); }
+  .price-label { font-size: 14px; color: var(--text); font-weight: 500; }
+  .price-label .note { font-size: 11px; color: var(--text-light); font-weight: 400; display: block; margin-top: 1px; }
+  .price-value { font-size: 16px; font-weight: 900; color: var(--green-dark); text-align: right; white-space: nowrap; }
+  .price-value .yen { font-size: 12px; margin-left: 1px; }
+  .price-value.consult { font-size: 13px; color: var(--text-light); font-weight: 500; }
+  .price-value.range { font-size: 13px; }
+
+  /* PACKAGE CARDS */
+  .package-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+    border: 1.5px solid var(--green-mid);
+  }
+  .package-header { background: linear-gradient(135deg, var(--green-dark), var(--green)); padding: 16px; color: #fff; }
+  .package-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+    font-size: 10px;
+    padding: 2px 8px;
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+  .package-name { font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 700; line-height: 1.3; }
+  .package-price { margin-top: 8px; font-size: 13px; color: rgba(255,255,255,0.85); }
+  .package-price strong { font-size: 22px; color: #fff; margin: 0 2px; }
+  .package-body { padding: 14px 16px; }
+  .package-includes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .include-tag { background: var(--green-light); color: var(--green-dark); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
+  .package-desc { font-size: 12px; color: var(--text-mid); line-height: 1.8; border-top: 1px solid var(--border); padding-top: 10px; }
+
+  /* INFO BOX */
+  .info-box { background: var(--green-light); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; border-left: 3px solid var(--green); }
+  .info-box p { font-size: 12px; color: var(--text-mid); line-height: 1.8; }
+  .info-box strong { color: var(--green-dark); }
+
+  /* FLOW */
+  .flow-step {
+    display: flex; gap: 14px; padding: 14px 16px;
+    background: #fff; position: relative;
+  }
+  .flow-step:not(:last-child)::after {
+    content: ''; position: absolute; left: 30px; bottom: 0;
+    width: 2px; height: 100%; background: var(--green-mid);
+    transform: translateX(-50%);
+  }
+  .flow-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--green); color: #fff;
+    font-size: 13px; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .flow-content { flex: 1; }
+  .flow-content strong { font-size: 14px; color: var(--text); }
+  .flow-content p { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+
+  /* CTA */
+  .cta-sticky {
+    position: fixed;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%; max-width: 480px;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex; gap: 10px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    z-index: 100;
+  }
+  .btn-main {
+    flex: 1;
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    color: #fff; border: none; border-radius: 12px;
+    padding: 14px 0; font-size: 14px; font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(58,158,95,0.4);
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    text-decoration: none;
+  }
+  .btn-sub {
+    flex: 1;
+    background: #fff;
+    color: var(--green-dark);
+    border: 2px solid var(--green);
+    border-radius: 12px; padding: 14px 0;
+    font-size: 14px; font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    text-decoration: none;
+  }
+  .btn-sub:active { background: var(--green-light); }
+
+  .divider { height: 8px; background: var(--cream); margin: 8px 0; }
+  .mt8 { margin-top: 8px; }
+  .mt16 { margin-top: 16px; }
+
+  .page-section { display: none; }
+  .page-section.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.4s ease both; }
+  .fade-up:nth-child(2) { animation-delay: 0.06s; }
+  .fade-up:nth-child(3) { animation-delay: 0.12s; }
+  .fade-up:nth-child(4) { animation-delay: 0.18s; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-logo">
+    <span class="leaf">🌿</span>
+    <span class="brand">SECOND LIFE 株式会社</span>
+  </div>
+  <h1>料金・サービス一覧</h1>
+  <p>小さなお手伝いから、家まるごとおまかせまで。<br>石川県全域で丁寧に対応いたします。</p>
+</div>
+
+<!-- NOTICE -->
+<div class="notice-band">※ 料金はすべて税込・目安です。現地確認後に正式なお見積もりをご提案します</div>
+
+<!-- NAV TABS -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="switchTab('cleaning', this)">🏠 クリーニング</button>
+  <button class="nav-tab" onclick="switchTab('kataduke', this)">📦 整理・片付け</button>
+  <button class="nav-tab" onclick="switchTab('package', this)">✨ おまかせプラン</button>
+  <button class="nav-tab" onclick="switchTab('flow', this)">📋 ご依頼の流れ</button>
+</div>
+
+
+<!-- ===================== TAB 1: クリーニング ===================== -->
+<div id="tab-cleaning" class="page-section active">
+
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="section-icon">🏠</div>
+      <div>
+        <div class="section-title">ハウスクリーニング</div>
+        <div class="section-sub">間取り別・まるごとプラン</div>
+      </div>
+    </div>
+
+    <div class="card fade-up">
+      <div class="card-title">小〜中規模（1R〜2LDK）</div>
+      <div class="price-row">
+        <div class="price-label">1R / 1K</div>
+        <div class="price-value">30,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">DK</div>
+        <div class="price-value">40,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">1LDK</div>
+        <div class="price-value">60,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">2DK</div>
+        <div class="price-value">75,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">2LDK</div>
+        <div class="price-value">100,000<span class="yen">円</span></div>
+      </div>
+    </div>
+
+    <div class="card fade-up">
+      <div class="card-title">大規模（3DK〜5LDK）</div>
+      <div class="price-row">
+        <div class="price-label">3DK</div>
+        <div class="price-value range">140,000円〜</div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">3LDK</div>
+        <div class="price-value range">165,000円〜</div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">4LDK</div>
+        <div class="price-value range">190,000円〜</div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">5LDK</div>
+        <div class="price-value range">230,000円〜</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔍</div>
+      <div>
+        <div class="section-title">箇所別クリーニング</div>
+        <div class="section-sub">1箇所からご依頼いただけます</div>
+      </div>
+    </div>
+    <div class="card fade-up">
+      <div class="price-row">
+        <div class="price-label">キッチン</div>
+        <div class="price-value">15,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">浴室</div>
+        <div class="price-value">15,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">洗面所</div>
+        <div class="price-value">10,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">トイレ</div>
+        <div class="price-value">10,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">エアコン洗浄</div>
+        <div class="price-value">15,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">換気扇</div>
+        <div class="price-value">15,000<span class="yen">円</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🏗️</div>
+      <div>
+        <div class="section-title">外壁クリーニング</div>
+        <div class="section-sub">石川県内・外壁対応可能な希少な業者です</div>
+      </div>
+    </div>
+    <div class="card fade-up">
+      <div class="price-row">
+        <div class="price-label">
+          外壁（1面）
+          <span class="note">面積・素材・汚れ具合によって変動します</span>
+        </div>
+        <div class="price-value">30,000<span class="yen">円〜</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">全面（4面）</div>
+        <div class="price-value consult">現地お見積り</div>
+      </div>
+    </div>
+    <div class="info-box">
+      <p><strong>🏆 石川県唯一の強み</strong><br>
+      室内クリーニング＋外壁クリーニングを同日・同一業者で対応できるのは、石川県内でセカンドライフ株式会社だけです。</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="card fade-up">
+      <div class="card-title">✅ 対応箇所すべて</div>
+      <div class="price-row"><div class="price-label">水回り全般<span class="note">キッチン・換気扇・浴室・浴槽・トイレ・洗面所</span></div></div>
+      <div class="price-row"><div class="price-label">エアコン</div></div>
+      <div class="price-row"><div class="price-label">床・フローリング</div></div>
+      <div class="price-row"><div class="price-label">窓・網戸・サッシ</div></div>
+      <div class="price-row"><div class="price-label">ベランダ・バルコニー</div></div>
+      <div class="price-row"><div class="price-label">玄関・外壁</div></div>
+      <div class="price-row" style="border:none"><div class="price-label">家電・天井・外壁</div></div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ===================== TAB 2: 整理・片付け ===================== -->
+<div id="tab-kataduke" class="page-section">
+
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="section-icon">🌸</div>
+      <div>
+        <div class="section-title">暮らしのお手伝い</div>
+        <div class="section-sub">小さなことでも、まずご相談ください</div>
+      </div>
+    </div>
+    <div class="card fade-up">
+      <div class="price-row">
+        <div class="price-label">庭の草刈り・除草<span class="note">広さにより変動</span></div>
+        <div class="price-value consult">お見積り</div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">荷物・書類の整理</div>
+        <div class="price-value consult">お見積り</div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">窓拭き</div>
+        <div class="price-value consult">お見積り</div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">家具の移動・組み立て</div>
+        <div class="price-value consult">お見積り</div>
+      </div>
+    </div>
+    <div class="info-box">
+      <p>「こんなこと頼めるかな…」と迷ったらLINEで写真を送っていただくだけで、概算をお伝えします。</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📦</div>
+      <div>
+        <div class="section-title">家財整理・生前整理・遺品整理</div>
+        <div class="section-sub">買取との組み合わせで費用を抑えられます</div>
+      </div>
+    </div>
+    <div class="card fade-up">
+      <div class="price-row">
+        <div class="price-label">1部屋の整理<span class="note">量・状況により変動</span></div>
+        <div class="price-value range">30,000円〜</div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">一軒まるごと家財整理</div>
+        <div class="price-value range">150,000円〜</div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">生前整理（資産の棚卸し含む）</div>
+        <div class="price-value consult">ご相談</div>
+      </div>
+      <div class="price-row" style="border:none">
+        <div class="price-label">遺品整理（思い出の品の梱包含む）</div>
+        <div class="price-value consult">ご相談</div>
+      </div>
+    </div>
+    <div class="info-box">
+      <p>📸 <strong>思い出の品は、写真に残します。</strong><br>
+      処分が難しいお品物も、アルバム作成・供養依頼などお気持ちに寄り添った形で対応いたします。</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">♻️</div>
+      <div>
+        <div class="section-title">中古品買取</div>
+        <div class="section-sub">「お品物の次の届け先」を一緒に考えます</div>
+      </div>
+    </div>
+    <div class="card fade-up">
+      <div class="price-row">
+        <div class="price-label">家電・家具・骨董品など</div>
+        <div class="price-value consult">無料査定</div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">整理費用との相殺<span class="note">買取金額が整理費用から差し引かれます</span></div>
+        <div class="price-value consult">対応可</div>
+      </div>
+      <div class="price-row" style="border:none">
+        <div class="price-label">出張査定<span class="note">石川県内・無料</span></div>
+        <div class="price-value" style="color:var(--orange)">無料</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🚚</div>
+      <div>
+        <div class="section-title">お品物の引き取り</div>
+        <div class="section-sub">使えるものは次の方へつなぎます</div>
+      </div>
+    </div>
+    <div class="card fade-up">
+      <div class="card-title">まとめて引き取り（トラック単位）</div>
+      <div class="price-row">
+        <div class="price-label">2t未満<span class="note">一般的な家財</span></div>
+        <div class="price-value">50,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row" style="border:none">
+        <div class="price-label">2t以上</div>
+        <div class="price-value consult">現地お見積り</div>
+      </div>
+    </div>
+    <div class="card fade-up">
+      <div class="card-title">個別・特殊品目</div>
+      <div class="price-row">
+        <div class="price-label">テレビ</div>
+        <div class="price-value">4,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">冷蔵庫 / 洗濯機</div>
+        <div class="price-value">6,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">エアコン外し・引き取り</div>
+        <div class="price-value">6,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">エンクロージャ等</div>
+        <div class="price-value">8,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">仏壇（供養・引き取り）</div>
+        <div class="price-value">30,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">金庫（小型）</div>
+        <div class="price-value">10,000<span class="yen">円</span></div>
+      </div>
+      <div class="price-row">
+        <div class="price-label">消火器 / 石 / タイヤ</div>
+        <div class="price-value range">1,000〜2,500円</div>
+      </div>
+      <div class="price-row" style="border:none">
+        <div class="price-label">着物・装飾器具</div>
+        <div class="price-value">3,000<span class="yen">円</span></div>
+      </div>
+    </div>
+    <div class="info-box">
+      <p>⚠️ <strong>引き取りできないもの：</strong>縁石・危険物（ガス缶・農薬など）、特殊な形状・重量物はご相談ください。</p>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ===================== TAB 3: おまかせプラン ===================== -->
+<div id="tab-package" class="page-section">
+  <div class="section mt16">
+    <div class="info-box">
+      <p>バラバラに頼むより<strong>まとめてお任せ</strong>の方が、後で費用がかかりません。見積もりは1度・立ち会い1回で完結します。</p>
+    </div>
+
+    <!-- プランA -->
+    <div class="package-card fade-up">
+      <div class="package-header">
+        <div class="package-tag">金沢市 おすすめ</div>
+        <div class="package-name">おまかせリセットプラン</div>
+        <div class="package-price">
+          <strong>30万〜100万</strong>円（目安）
+        </div>
+      </div>
+      <div class="package-body">
+        <div class="package-includes">
+          <span class="include-tag">生前整理</span>
+          <span class="include-tag">家財整理</span>
+          <span class="include-tag">中古品買取</span>
+          <span class="include-tag">ハウスクリーニング</span>
+          <span class="include-tag">外壁クリーニング</span>
+        </div>
+        <div class="package-desc">
+          🏠 <strong>こんな方に：</strong>60〜80代の親御さん・その子ども世代。持ち家の整理から清掃まで、一度にまとめてお任せいただけます。<br><br>
+          ✅ 個別に頼むより費用が抑えられます<br>
+          ✅ 立ち会いは1回で完結<br>
+          ✅ 思い出アルバム作成・供養依頼もオプションで対応
+        </div>
+      </div>
+    </div>
+
+    <!-- プランB -->
+    <div class="package-card fade-up">
+      <div class="package-header" style="background: linear-gradient(135deg, #3a5a9e, #5e7ec4);">
+        <div class="package-tag">不動産会社・空き家オーナー向け</div>
+        <div class="package-name">空き家・売却前整備プラン</div>
+        <div class="package-price">
+          <strong>50万〜150万</strong>円（目安）
+        </div>
+      </div>
+      <div class="package-body">
+        <div class="package-includes">
+          <span class="include-tag" style="background:#e8eef8;color:#3a5a9e">家財整理</span>
+          <span class="include-tag" style="background:#e8eef8;color:#3a5a9e">買取査定</span>
+          <span class="include-tag" style="background:#e8eef8;color:#3a5a9e">ハウスクリーニング</span>
+          <span class="include-tag" style="background:#e8eef8;color:#3a5a9e">外壁清掃</span>
+          <span class="include-tag" style="background:#e8eef8;color:#3a5a9e">引き渡し立ち会い</span>
+        </div>
+        <div class="package-desc">
+          🏘️ <strong>こんな方に：</strong>遠方にお住まいで実家の空き家をどうにかしたい方、不動産の売却前に家を「売れる状態」にしたい方。<br><br>
+          ✅ 不動産会社に「売れる状態」で引き渡し<br>
+          ✅ 遠方在住でも、現地対応すべてお任せ
+        </div>
+      </div>
+    </div>
+
+    <!-- プランC -->
+    <div class="package-card fade-up">
+      <div class="package-header" style="background: linear-gradient(135deg, #7a5230, #b07848);">
+        <div class="package-tag">能登半島 / 震災被害にあわれた方へ</div>
+        <div class="package-name">能登復興応援プラン</div>
+        <div class="package-price">
+          <strong>15万〜50万</strong>円（目安）
+        </div>
+      </div>
+      <div class="package-body">
+        <div class="package-includes">
+          <span class="include-tag" style="background:#f5ece3;color:#7a5230">被災家屋整理</span>
+          <span class="include-tag" style="background:#f5ece3;color:#7a5230">思い出の品梱包</span>
+          <span class="include-tag" style="background:#f5ece3;color:#7a5230">買取査定</span>
+          <span class="include-tag" style="background:#f5ece3;color:#7a5230">解体前整備</span>
+        </div>
+        <div class="package-desc">
+          📷 <strong>思い出の品の写真撮影・アルバム作成を無料でご提供しています。</strong><br><br>
+          大切なお品物を一点一点丁寧に確認し、次の形でお届けします。能登半島専門で被災された方、遠方に住まわれて家の整理が進まない方へ。自治体・社会福祉協議会とも連携しています。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===================== TAB 4: ご依頼の流れ ===================== -->
+<div id="tab-flow" class="page-section">
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="section-icon">📋</div>
+      <div>
+        <div class="section-title">ご依頼の流れ</div>
+        <div class="section-sub">LINEでのご相談から作業完了まで</div>
+      </div>
+    </div>
+
+    <div class="card fade-up">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <strong>💬 LINEまたは電話でご相談</strong>
+          <p>「こんなことも頼めますか？」という小さな質問でも大丈夫です。写真を送っていただければ概算をご案内します。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <strong>🏠 現地無料お見積り</strong>
+          <p>スタッフが現地にお伺いして、内容と金額をご説明します。この段階では費用は一切かかりません。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <strong>📝 ご納得いただけたら作業開始</strong>
+          <p>見積もり内容にご満足いただけた場合のみ、契約・作業を行います。作業後の写真レポートもお渡しします。</p>
+        </div>
+      </div>
+      <div class="flow-step" style="padding-bottom:16px">
+        <div class="flow-num" style="background:var(--orange)">4</div>
+        <div class="flow-content">
+          <strong>✅ 作業完了・アフターフォロー</strong>
+          <p>完了後もLINEでいつでもご相談ください。定期クリーニングや追加のお手伝いにも対応します。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box mt16">
+      <p>📅 <strong>営業時間：</strong>平日・土曜 9:00〜18:00<br>
+      📍 <strong>対応エリア：</strong>石川県全域（金沢市・能登市）<br>
+      🚗 <strong>出張見積もり：</strong>無料</p>
+    </div>
+
+    <div class="card fade-up mt16">
+      <div class="card-title">💬 よくあるご質問</div>
+      <div class="price-row" style="flex-direction:column;align-items:flex-start;gap:4px">
+        <div style="font-size:13px;font-weight:700;color:var(--green-dark)">Q. 一部屋だけの整理でもお願いできますか？</div>
+        <div style="font-size:12px;color:var(--text-mid)">はい、もちろんです。小さなご依頼から大歓迎です。まずはご相談ください。</div>
+      </div>
+      <div class="price-row" style="flex-direction:column;align-items:flex-start;gap:4px">
+        <div style="font-size:13px;font-weight:700;color:var(--green-dark)">Q. 遠方に住んでいて立ち会えません。</div>
+        <div style="font-size:12px;color:var(--text-mid)">お安心ください。写真付きの作業レポートをお送りしますので、遠方の方にもご好評をいただいています。</div>
+      </div>
+      <div class="price-row" style="flex-direction:column;align-items:flex-start;gap:4px;border:none">
+        <div style="font-size:13px;font-weight:700;color:var(--green-dark)">Q. 見積もり後に断ることはできますか？</div>
+        <div style="font-size:12px;color:var(--text-mid)">もちろんです。見積もりは完全無料で、断っても費用は一切発生しません。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- CTA STICKY -->
+<div class="cta-sticky">
+  <a class="btn-sub" href="tel:PHONE_NUMBER">📞 電話する</a>
+  <a class="btn-main" href="https://line.me/R/ti/p/@051wlfjw">💬 LINEで無料相談</a>
+</div>
+
+<script>
+  function switchTab(id, el) {
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
