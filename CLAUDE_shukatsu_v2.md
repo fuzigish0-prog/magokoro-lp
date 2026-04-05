@@ -510,7 +510,7 @@ SLACK_WEBHOOK_URL=your_slack_webhook_url
 | リソース | 値 |
 |---|---|
 | LP URL | https://fuzigish0-prog.github.io/magokoro-lp/lp.html |
-| LINE友だち追加URL | https://lin.ee/udl69d1c |
+| LINE友だち追加URL | https://line.me/R/ti/p/@051wlfjw |
 | 相談フォーム | https://formspree.io/f/meeppqgn |
 | LINE Harness Worker | https://line-harness-shukatsu.fp-kanazawa.workers.dev |
 | LINE Harness 管理画面 | https://magokoro-admin.pages.dev |
