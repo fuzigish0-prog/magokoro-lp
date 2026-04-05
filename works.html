@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>施工事例｜セカンドライフ株式会社・まごころ相談所</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #3a9e5f;
+    --green-light: #e8f5ee;
+    --green-mid: #c1e8cf;
+    --green-dark: #236b3e;
+    --orange: #e07c2a;
+    --cream: #faf8f3;
+    --text: #2a2a2a;
+    --text-mid: #555;
+    --text-light: #888;
+    --border: #e0ede5;
+    --shadow: 0 2px 16px rgba(58,158,95,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto;
+    padding-bottom: calc(100px + env(safe-area-inset-bottom));
+    line-break: strict;
+    overflow-wrap: break-word;
+  }
+  h1, h2, h3 { word-break: keep-all; }
+
+  /* ── HEADER ─────────────────────── */
+  .header {
+    background: linear-gradient(160deg, var(--green-dark) 0%, var(--green) 100%);
+    padding: calc(28px + env(safe-area-inset-top)) 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    right: -30px; top: -30px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .header-logo {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .header-logo .leaf { font-size: 20px; }
+  .header-logo .brand { color: rgba(255,255,255,0.85); font-size: 12px; font-weight: 500; letter-spacing: 0.1em; }
+  .header h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 700;
+    line-height: 1.45;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .header-desc {
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    line-height: 1.9;
+    position: relative;
+  }
+  .header-stats {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    position: relative;
+  }
+  .header-stat {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 10px;
+    padding: 8px 12px;
+    text-align: center;
+    flex: 1;
+  }
+  .header-stat .num {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffe082;
+    display: block;
+    line-height: 1.1;
+  }
+  .header-stat .label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 2px;
+  }
+
+  /* ── FILTER TABS ─────────────────── */
+  .filter-tabs {
+    display: flex;
+    overflow-x: auto;
+    gap: 6px;
+    padding: 14px 16px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .filter-tabs::-webkit-scrollbar { display: none; }
+  .filter-tab {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    background: var(--green-light);
+    color: var(--green-dark);
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .filter-tab.active { background: var(--green); color: white; }
+
+  /* ── CASE CARDS ──────────────────── */
+  .cases-wrap { padding: 16px; display: flex; flex-direction: column; gap: 16px; }
+
+  .case-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: none;
+  }
+  .case-card.show { display: block; }
+
+  /* BEFORE/AFTER */
+  .ba-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    position: relative;
+  }
+  .ba-side { position: relative; }
+  .ba-side img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
+  .ba-label {
+    position: absolute;
+    top: 8px; left: 8px;
+    background: rgba(0,0,0,0.55);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+  .ba-label.after { background: var(--green); }
+  .ba-arrow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 28px; height: 28px;
+    background: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 2;
+  }
+
+  /* SINGLE PHOTO */
+  .single-photo img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* CARD BODY */
+  .case-body { padding: 16px; }
+  .case-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .case-cat {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .cat-seizen { background: #e8f5ee; color: #236b3e; }
+  .cat-ihin   { background: #fff3e8; color: #a05010; }
+  .cat-clean  { background: #e8f0ff; color: #2a4a9e; }
+  .cat-noto   { background: #fdecea; color: #9e2a2a; }
+  .cat-souri  { background: #f5e8ff; color: #6a2a9e; }
+  .case-area {
+    font-size: 11px;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .case-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .case-desc {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.85;
+    margin-bottom: 12px;
+  }
+  .case-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .case-point {
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .case-voice {
+    margin-top: 12px;
+    background: #fffbf4;
+    border-left: 3px solid var(--orange);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: var(--text-mid);
+    line-height: 1.8;
+  }
+  .case-voice .voice-from {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 6px;
+  }
+
+  /* ── NO RESULT ─────────────────── */
+  .no-result {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-light);
+    font-size: 14px;
+  }
+
+  /* ── CTA BAND ────────────────────── */
+  .cta-band {
+    margin: 0 16px;
+    background: linear-gradient(135deg, var(--green-dark), var(--green));
+    border-radius: 16px;
+    padding: 22px 18px;
+    text-align: center;
+    color: white;
+  }
+  .cta-band p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 14px;
+    line-height: 1.8;
+  }
+  .cta-band-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  /* ── STICKY CTA ──────────────────── */
+  .sticky-cta {
+    position: fixed;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: white;
+    border-top: 1px solid var(--border);
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    display: flex;
+    gap: 10px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    z-index: 999;
+  }
+  .cta-line {
+    flex: 1;
+    background: #06c755;
+    color: white;
+    border: none;
+    border-radius: 28px;
+    padding: 14px 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .cta-consult {
+    flex: 1;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 28px;
+    padding: 14px 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  /* ── FADE IN ─────────────────── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ─────────────────────────── -->
+<header class="header">
+  <div class="header-logo">
+    <span class="leaf">🌿</span>
+    <span class="brand">セカンドライフ株式会社</span>
+  </div>
+  <h1>施工事例</h1>
+  <p class="header-desc">石川県内の生前整理・遺品整理・クリーニングの<br>実際の施工をご紹介します。</p>
+  <div class="header-stats">
+    <div class="header-stat">
+      <span class="num">100+</span>
+      <div class="label">年間施工件数</div>
+    </div>
+    <div class="header-stat">
+      <span class="num">石川県</span>
+      <div class="label">全域対応</div>
+    </div>
+    <div class="header-stat">
+      <span class="num">¥0</span>
+      <div class="label">まずは無料相談</div>
+    </div>
+  </div>
+</header>
+
+<!-- ── FILTER TABS ─────────────────────── -->
+<div class="filter-tabs">
+  <button class="filter-tab active" onclick="filter('all')">すべて</button>
+  <button class="filter-tab" onclick="filter('seizen')">生前整理</button>
+  <button class="filter-tab" onclick="filter('ihin')">遺品整理</button>
+  <button class="filter-tab" onclick="filter('clean')">クリーニング</button>
+  <button class="filter-tab" onclick="filter('noto')">能登復興支援</button>
+  <button class="filter-tab" onclick="filter('souri')">総合おまかせ</button>
+</div>
+
+<!-- ── CASES ──────────────────────────── -->
+<div class="cases-wrap" id="cases">
+
+  <!-- 1: 生前整理 -->
+  <div class="case-card show fade-in" data-cat="seizen">
+    <div class="ba-wrap">
+      <div class="ba-side">
+        <img src="https://picsum.photos/seed/room-before1/400/300" alt="作業前">
+        <span class="ba-label">BEFORE</span>
+      </div>
+      <div class="ba-side">
+        <img src="https://picsum.photos/seed/room-after1/400/300" alt="作業後">
+        <span class="ba-label after">AFTER</span>
+      </div>
+      <div class="ba-arrow">→</div>
+    </div>
+    <div class="case-body">
+      <div class="case-meta">
+        <span class="case-cat cat-seizen">生前整理</span>
+        <span class="case-area">📍 金沢市</span>
+      </div>
+      <h3 class="case-title">一軒家の生前整理・おまかせリセット</h3>
+      <p class="case-desc">
+        「子どもたちに手間をかけたくない」とご相談いただいた70代のお客様。
+        3LDKの持ち家の中から、思い出のお品物を一緒に仕分け。
+        使えるものは買取、不要なものは適切に処分し、
+        スッキリとした暮らしの再スタートをお手伝いしました。
+      </p>
+      <div class="case-points">
+        <span class="case-point">3LDK・2日間</span>
+        <span class="case-point">買取あり</span>
+        <span class="case-point">思い出品の記録撮影</span>
+      </div>
+      <div class="case-voice">
+        「一つひとつ丁寧に確認しながら進めてくれて、捨てる罪悪感がありませんでした。」
+        <div class="voice-from">70代 女性・金沢市在住</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2: 遺品整理 -->
+  <div class="case-card show fade-in" data-cat="ihin">
+    <div class="ba-wrap">
+      <div class="ba-side">
+        <img src="https://picsum.photos/seed/house-before2/400/300" alt="作業前">
+        <span class="ba-label">BEFORE</span>
+      </div>
+      <div class="ba-side">
+        <img src="https://picsum.photos/seed/house-after2/400/300" alt="作業後">
+        <span class="ba-label after">AFTER</span>
+      </div>
+      <div class="ba-arrow">→</div>
+    </div>
+    <div class="case-body">
+      <div class="case-meta">
+        <span class="case-cat cat-ihin">遺品整理</span>
+        <span class="case-area">📍 白山市</span>
+      </div>
+      <h3 class="case-title">親御さんの実家・遺品整理から売却準備まで</h3>
+      <p class="case-desc">
+        遠方からのご依頼で、白山市の実家を整理。
+        形見のお品物を丁寧に仕分けし、写真で記録。
+        整理完了後のハウスクリーニングまで一貫対応し、
+        不動産売却に向けた状態に仕上げました。
+      </p>
+      <div class="case-points">
+        <span class="case-point">4LDK・3日間</span>
+        <span class="case-point">形見の写真記録</span>
+        <span class="case-point">クリーニング込み</span>
+      </div>
+      <div class="case-voice">
+        「遠方で立ち会えなかったのに、写真で報告してくれて安心できました。」
+        <div class="voice-from">40代 男性・大阪在住（親の実家を依頼）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3: クリーニング -->
+  <div class="case-card show fade-in" data-cat="clean">
+    <div class="ba-wrap">
+      <div class="ba-side">
+        <img src="https://picsum.photos/seed/clean-before3/400/300" alt="作業前">
+        <span class="ba-label">BEFORE</span>
+      </div>
+      <div class="ba-side">
+        <img src="https://picsum.photos/seed/clean-after3/400/300" alt="作業後">
+        <span class="ba-label after">AFTER</span>
+      </div>
+      <div class="ba-arrow">→</div>
+    </div>
+    <div class="case-body">
+      <div class="case-meta">
+        <span class="case-cat cat-clean">ハウスクリーニング</span>
+        <span class="case-area">📍 金沢市</span>
+      </div>
+      <h3 class="case-title">空き家・売却前の丸ごとクリーニング</h3>
+      <p class="case-desc">
+        10年間空き家になっていた戸建て住宅の
+        全室・水回り・外観まとめてクリーニング。
+        不動産売却の内覧に向けて、
+        第一印象がよくなるよう仕上げました。
+      </p>
+      <div class="case-points">
+        <span class="case-point">戸建て全室</span>
+        <span class="case-point">水回り4点セット</span>
+        <span class="case-point">1日仕上げ</span>
+      </div>
+      <div class="case-voice">
+        「内覧のお客さんに『キレイですね』と言ってもらえて、無事に売却できました。」
+        <div class="voice-from">50代 女性・金沢市在住</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4: 能登 -->
+  <div class="case-card show fade-in" data-cat="noto">
+    <div class="single-photo">
+      <img src="https://picsum.photos/seed/noto-work4/600/338" alt="能登での作業">
+    </div>
+    <div class="case-body">
+      <div class="case-meta">
+        <span class="case-cat cat-noto">能登復興支援</span>
+        <span class="case-area">📍 輪島市</span>
+      </div>
+      <h3 class="case-title">能登半島地震 被災家屋の家財整理</h3>
+      <p class="case-desc">
+        2024年1月の地震で大きな被害を受けた輪島市の住宅。
+        遠方に避難されたご家族に代わり、
+        思い出の品を優先的に回収・記録した後、
+        安全に家財整理を完了しました。
+      </p>
+      <div class="case-points">
+        <span class="case-point">被災家屋対応</span>
+        <span class="case-point">遠方オーナー対応</span>
+        <span class="case-point">写真報告つき</span>
+      </div>
+      <div class="case-voice">
+        「遠くにいて何もできない罪悪感があったのですが、写真で全部見せてもらえて救われました。」
+        <div class="voice-from">50代 女性・金沢市（実家は輪島市）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5: 総合おまかせ -->
+  <div class="case-card show fade-in" data-cat="souri">
+    <div class="ba-wrap">
+      <div class="ba-side">
+        <img src="https://picsum.photos/seed/all-before5/400/300" alt="作業前">
+        <span class="ba-label">BEFORE</span>
+      </div>
+      <div class="ba-side">
+        <img src="https://picsum.photos/seed/all-after5/400/300" alt="作業後">
+        <span class="ba-label after">AFTER</span>
+      </div>
+      <div class="ba-arrow">→</div>
+    </div>
+    <div class="case-body">
+      <div class="case-meta">
+        <span class="case-cat cat-souri">総合おまかせ</span>
+        <span class="case-area">📍 小松市</span>
+      </div>
+      <h3 class="case-title">整理・買取・クリーニングを一括おまかせ</h3>
+      <p class="case-desc">
+        「何から手をつければいいかわからない」と
+        相談いただいた60代ご夫婦の事例。
+        無料相談から始まり、整理→買取査定→クリーニングまで
+        すべてセカンドライフひとつに任せていただきました。
+      </p>
+      <div class="case-points">
+        <span class="case-point">相談〜完了まで3週間</span>
+        <span class="case-point">買取で費用を圧縮</span>
+        <span class="case-point">ワンストップ対応</span>
+      </div>
+      <div class="case-voice">
+        「別々の会社に頼む必要がなくて、窓口がひとつで本当に楽でした。」
+        <div class="voice-from">62歳 男性・小松市在住</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6: 生前整理2 -->
+  <div class="case-card show fade-in" data-cat="seizen">
+    <div class="single-photo">
+      <img src="https://picsum.photos/seed/seizen-single6/600/338" alt="生前整理の施工">
+    </div>
+    <div class="case-body">
+      <div class="case-meta">
+        <span class="case-cat cat-seizen">生前整理</span>
+        <span class="case-area">📍 加賀市</span>
+      </div>
+      <h3 class="case-title">エンディングノートに合わせた段階的な整理</h3>
+      <p class="case-desc">
+        「自分でエンディングノートを書きながら少しずつ整理したい」
+        というご要望に合わせ、月1回のペースで訪問。
+        半年かけてご自宅を整理しながら、
+        お品物の行き先を一緒に決めていきました。
+      </p>
+      <div class="case-points">
+        <span class="case-point">月1回訪問・半年間</span>
+        <span class="case-point">本人ペース対応</span>
+        <span class="case-point">エンディングノート連動</span>
+      </div>
+      <div class="case-voice">
+        「急かされず、自分のペースで進められてよかった。整理するたびに気持ちが軽くなりました。」
+        <div class="voice-from">68歳 女性・加賀市在住</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /cases-wrap -->
+
+<!-- ── CTA BAND ─────────────────────── -->
+<div class="cta-band fade-in" style="margin-top:0;">
+  <div class="cta-band-title">まずは無料相談から</div>
+  <p>「うちの場合はどうなる？」<br>費用感・作業内容・期間など、なんでもお気軽にご相談ください。</p>
+  <a href="https://line.me/R/ti/p/@051wlfjw" style="display:inline-flex;align-items:center;gap:6px;background:white;color:#06c755;font-weight:700;font-size:14px;padding:12px 28px;border-radius:30px;text-decoration:none;white-space:nowrap;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.26 2 11.5c0 3.38 1.89 6.34 4.73 8.1L6 22l3.04-1.59c.94.26 1.94.4 2.96.4 5.52 0 10-4.26 10-9.5S17.52 2 12 2z"/></svg>
+    LINEで無料相談する
+  </a>
+</div>
+
+<div style="height:20px;"></div>
+
+<!-- ── STICKY CTA ──────────────────── -->
+<div class="sticky-cta">
+  <a href="https://line.me/R/ti/p/@051wlfjw" class="cta-line">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.26 2 11.5c0 3.38 1.89 6.34 4.73 8.1L6 22l3.04-1.59c.94.26 1.94.4 2.96.4 5.52 0 10-4.26 10-9.5S17.52 2 12 2z"/></svg>
+    LINEで相談する
+  </a>
+  <a href="https://fuzigish0-prog.github.io/magokoro-lp/#form" class="cta-consult">
+    📋 無料相談フォーム
+  </a>
+</div>
+
+<script>
+  // ── FILTER ─────────────────────────
+  function filter(cat) {
+    // タブ切替
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+
+    // カード表示切替
+    const cards = document.querySelectorAll('.case-card');
+    cards.forEach(c => {
+      const show = cat === 'all' || c.dataset.cat === cat;
+      c.classList.toggle('show', show);
+    });
+  }
+
+  // ── FADE IN ────────────────────────
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
