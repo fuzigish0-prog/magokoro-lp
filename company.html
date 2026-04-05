@@ -30,6 +30,10 @@
     max-width: 480px;
     margin: 0 auto;
     padding-bottom: calc(100px + env(safe-area-inset-bottom));
+    /* 日本語組版：括弧・句読点前後の不正な改行を防ぐ */
+    line-break: strict;
+    overflow-wrap: break-word;
+    word-break: keep-all;
   }
 
   /* ── HEADER ─────────────────────── */
