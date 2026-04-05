@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>会社の想い｜セカンドライフ株式会社・まごころ相談所</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #3a9e5f;
+    --green-light: #e8f5ee;
+    --green-mid: #c1e8cf;
+    --green-dark: #236b3e;
+    --orange: #e07c2a;
+    --cream: #faf8f3;
+    --text: #2a2a2a;
+    --text-mid: #555;
+    --text-light: #888;
+    --border: #e0ede5;
+    --shadow: 0 2px 16px rgba(58,158,95,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto;
+    padding-bottom: calc(100px + env(safe-area-inset-bottom));
+  }
+
+  /* ── HEADER ─────────────────────── */
+  .header {
+    background: linear-gradient(160deg, var(--green-dark) 0%, var(--green) 100%);
+    padding: calc(28px + env(safe-area-inset-top)) 20px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    right: -30px; top: -30px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    left: -40px; bottom: -40px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header-logo {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .header-logo .leaf { font-size: 20px; }
+  .header-logo .brand { color: rgba(255,255,255,0.85); font-size: 12px; font-weight: 500; letter-spacing: 0.1em; }
+  .header h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 22px;
+    color: #fff;
+    font-weight: 700;
+    line-height: 1.45;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .header h1 em { font-style: normal; color: #ffe082; }
+  .header-desc {
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    line-height: 1.9;
+    position: relative;
+  }
+
+  /* ── SECTION COMMON ─────────────── */
+  .section { padding: 24px 16px 0; }
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--green-dark);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .section-title em { font-style: normal; color: var(--orange); }
+  .section-body {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.9;
+  }
+  .divider {
+    width: 40px;
+    height: 3px;
+    background: var(--green);
+    border-radius: 2px;
+    margin: 10px 0 16px;
+  }
+
+  /* ── PHILOSOPHY CARD ────────────── */
+  .philosophy-wrap {
+    margin: 20px 16px 0;
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+    border-radius: 18px;
+    padding: 28px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .philosophy-wrap::before {
+    content: '';
+    position: absolute;
+    right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .philosophy-item { margin-bottom: 20px; position: relative; }
+  .philosophy-item:last-child { margin-bottom: 0; }
+  .philosophy-tag {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .philosophy-text {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.55;
+  }
+  .philosophy-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+    line-height: 1.7;
+  }
+  .philosophy-separator {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.18);
+    margin: 18px 0;
+  }
+
+  /* ── STORY SECTION ──────────────── */
+  .story-card {
+    background: white;
+    border-radius: 16px;
+    padding: 22px 18px;
+    margin-top: 14px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--green);
+  }
+  .story-card p {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 2.0;
+  }
+  .story-card p + p { margin-top: 14px; }
+
+  /* ── STRENGTH CARDS ─────────────── */
+  .strength-list { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .strength-card {
+    background: white;
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .strength-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--green-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .strength-body {}
+  .strength-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--green-dark);
+    margin-bottom: 4px;
+  }
+  .strength-desc {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.75;
+  }
+
+  /* ── PROFILE ─────────────────────── */
+  .profile-wrap {
+    margin-top: 14px;
+    background: white;
+    border-radius: 18px;
+    padding: 22px 18px;
+    box-shadow: var(--shadow);
+  }
+  .profile-avatar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .profile-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green-dark), var(--green));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(58,158,95,0.3);
+  }
+  .profile-meta {}
+  .profile-name {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 2px;
+  }
+  .profile-title {
+    font-size: 12px;
+    color: var(--text-light);
+    letter-spacing: 0.05em;
+  }
+  .profile-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .profile-tag {
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .profile-desc {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.9;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+  .profile-quote {
+    margin-top: 14px;
+    background: var(--green-light);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--green-dark);
+    font-style: italic;
+    line-height: 1.9;
+    position: relative;
+  }
+  .profile-quote::before {
+    content: '\201C';
+    font-size: 36px;
+    color: var(--green-mid);
+    line-height: 0;
+    vertical-align: -14px;
+    margin-right: 2px;
+    font-family: Georgia, serif;
+  }
+
+  /* ── PROMISE CARDS ─────────────── */
+  .promise-list { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .promise-card {
+    background: white;
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .promise-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--green);
+    color: white;
+    font-size: 14px;
+    font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 3px 8px rgba(58,158,95,0.3);
+  }
+  .promise-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .promise-text span {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-mid);
+    margin-top: 2px;
+    line-height: 1.6;
+  }
+
+  /* ── VOICE CARDS ─────────────── */
+  .voice-list { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .voice-card {
+    background: white;
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+  }
+  .voice-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .voice-icon {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--green-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .voice-meta {}
+  .voice-who { font-size: 12px; font-weight: 700; color: var(--green-dark); }
+  .voice-where { font-size: 11px; color: var(--text-light); }
+  .voice-text {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.9;
+  }
+
+  /* ── NOTO EARTHQUAKE BAND ─────── */
+  .noto-band {
+    margin: 20px 16px 0;
+    background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
+    border-radius: 14px;
+    padding: 18px 18px;
+    border: 1px solid #c5d8fa;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .noto-icon { font-size: 28px; flex-shrink: 0; }
+  .noto-body {}
+  .noto-title { font-size: 13px; font-weight: 700; color: #1a3a6e; margin-bottom: 6px; }
+  .noto-desc { font-size: 12px; color: #4a5a7a; line-height: 1.8; }
+
+  /* ── STATS ───────────────────── */
+  .stats-wrap {
+    margin-top: 14px;
+    background: white;
+    border-radius: 16px;
+    padding: 20px 16px;
+    box-shadow: var(--shadow);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--green-dark);
+    line-height: 1.1;
+  }
+  .stat-num sup { font-size: 14px; }
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .stat-divider {
+    grid-column: 1 / -1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── STICKY CTA ──────────────── */
+  .sticky-cta {
+    position: fixed;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: white;
+    border-top: 1px solid var(--border);
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    display: flex;
+    gap: 10px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    z-index: 999;
+  }
+  .cta-line {
+    flex: 1;
+    background: #06c755;
+    color: white;
+    border: none;
+    border-radius: 28px;
+    padding: 14px 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .cta-consult {
+    flex: 1;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 28px;
+    padding: 14px 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  /* ── FADE IN ─────────────────── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ───────────────────────── -->
+<header class="header">
+  <div class="header-logo">
+    <span class="leaf">🌿</span>
+    <span class="brand">セカンドライフ株式会社</span>
+  </div>
+  <h1>「1人にしない」<br><em>それが、私たちの約束。</em></h1>
+  <p class="header-desc">
+    石川県で暮らす方々の「困った」「どうすればいい」に、<br>
+    正直に・丁寧に・一緒に向き合い続けます。
+  </p>
+</header>
+
+<!-- ── PHILOSOPHY ────────────────────── -->
+<div class="philosophy-wrap fade-in">
+  <div class="philosophy-item">
+    <div class="philosophy-tag">MISSION</div>
+    <div class="philosophy-text">1人にしない<br>インフラを作る</div>
+    <div class="philosophy-sub">困ったときに「あそこに頼めば大丈夫」と思える存在であり続けること</div>
+  </div>
+  <hr class="philosophy-separator">
+  <div class="philosophy-item">
+    <div class="philosophy-tag">VISION</div>
+    <div class="philosophy-text">無くてはならない存在に</div>
+    <div class="philosophy-sub">石川県のくらしに、なくてはならないパートナーへ</div>
+  </div>
+  <hr class="philosophy-separator">
+  <div class="philosophy-item">
+    <div class="philosophy-tag">VALUE</div>
+    <div class="philosophy-text">共に悩み、共に作る、<br>確かな未来</div>
+    <div class="philosophy-sub">答えを押しつけない。あなたと一緒に考えることが私たちの仕事です</div>
+  </div>
+</div>
+
+<!-- ── STORY ─────────────────────────── -->
+<section class="section fade-in">
+  <div class="section-label">🌱 なぜ始めたのか</div>
+  <h2 class="section-title">「もっと早く相談できていたら」<br><em>その言葉が、原点です。</em></h2>
+  <div class="divider"></div>
+  <div class="story-card">
+    <p>
+      ハウスメーカーの営業として10年間、100棟以上の住宅購入に関わってきた中で、
+      あることに気づきました。家を買う喜びの裏側で、相続や終活の問題を抱えたまま
+      孤独に悩んでいるご家族が、あまりにも多いということ。
+    </p>
+    <p>
+      「もっと早く誰かに相談できていたら…」。そんな言葉を何度聞いたか分かりません。
+      不動産・相続・家族のこと——これらは切り離せないのに、まとめて相談できる場所が
+      地域にありませんでした。
+    </p>
+    <p>
+      だから、作ることにしました。売り込みなし・完全無料・中立な立場で
+      「終活・相続のことをなんでも話せる場所」を。
+      それが<strong>まごころ相談所</strong>の始まりです。
+    </p>
+  </div>
+</section>
+
+<!-- ── STATS ──────────────────────────── -->
+<section class="section fade-in">
+  <div class="section-label">📊 実績</div>
+  <div class="stats-wrap">
+    <div class="stat-item">
+      <div class="stat-num">100<sup>組+</sup></div>
+      <div class="stat-label">年間相談実績</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">¥0</div>
+      <div class="stat-label">相談料<br>完全無料</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">12<sup>名</sup></div>
+      <div class="stat-label">スタッフ全員<br>石川県在住</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">10<sup>年+</sup></div>
+      <div class="stat-label">地域密着の<br>サポート経験</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STRENGTH ───────────────────────── -->
+<section class="section fade-in">
+  <div class="section-label">💪 私たちにできること</div>
+  <h2 class="section-title">石川県で唯一、<em>ワンストップ</em>で寄り添います</h2>
+  <div class="divider"></div>
+  <div class="strength-list">
+    <div class="strength-card">
+      <div class="strength-icon">🏠</div>
+      <div class="strength-body">
+        <div class="strength-title">整理から相続まで一貫サポート</div>
+        <div class="strength-desc">片付け・生前整理・買取・家事代行・終活相談——石川県内でこれをワンストップで提供できるのは私たちだけです。</div>
+      </div>
+    </div>
+    <div class="strength-card">
+      <div class="strength-icon">👤</div>
+      <div class="strength-body">
+        <div class="strength-title">顔が見える12名体制</div>
+        <div class="strength-desc">大手企業のような「担当者がころころ変わる」はありません。あなたの事情を知るスタッフが最初から最後まで関わります。</div>
+      </div>
+    </div>
+    <div class="strength-card">
+      <div class="strength-icon">🗾</div>
+      <div class="strength-body">
+        <div class="strength-title">石川県の「くらし」を知り尽くしている</div>
+        <div class="strength-desc">「家を持って一人前」の北陸文化、能登・加賀・金沢それぞれの事情。地元で暮らし続けてきたからこそ分かる、現場のリアルがあります。</div>
+      </div>
+    </div>
+    <div class="strength-card">
+      <div class="strength-icon">🌀</div>
+      <div class="strength-body">
+        <div class="strength-title">能登半島地震の復興支援実績</div>
+        <div class="strength-desc">2024年1月の震災発生直後から、被災地での家財整理・家屋片付けを支援。「困ったときに頼れる」を実績で示してきました。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NOTO BAND ───────────────────── -->
+<div class="noto-band fade-in">
+  <div class="noto-icon">🤝</div>
+  <div class="noto-body">
+    <div class="noto-title">能登半島地震 復興支援への取り組み</div>
+    <div class="noto-desc">
+      震災により住家被害を受けた約8万棟の片付け・整理を支援。
+      遠方にいてどうしようもない…という方のご相談も、引き続き無料でお受けしています。
+    </div>
+  </div>
+</div>
+
+<!-- ── PROFILE ─────────────────────── -->
+<section class="section fade-in">
+  <div class="section-label">👤 相談員プロフィール</div>
+  <h2 class="section-title">安心して話せる<em>「その人」</em>がいます</h2>
+  <div class="divider"></div>
+  <div class="profile-wrap">
+    <div class="profile-avatar-wrap">
+      <div class="profile-avatar">🌿</div>
+      <div class="profile-meta">
+        <div class="profile-name">岡野 京平</div>
+        <div class="profile-title">終活・相続 相談員 ／ セカンドライフ株式会社</div>
+      </div>
+    </div>
+    <div class="profile-tags">
+      <span class="profile-tag">石川県在住</span>
+      <span class="profile-tag">住宅営業10年</span>
+      <span class="profile-tag">年間100組超の相談実績</span>
+      <span class="profile-tag">売り込みなし</span>
+    </div>
+    <div class="profile-desc">
+      ハウスメーカーの営業として10年間・100棟超の住宅購入を担当。その経験の中で「家を買った後に相続でもめた家族」を数多く目の当たりにしてきました。<br><br>
+      不動産・資産・家族問題が交差する終活の現場を知っているからこそ、
+      教科書的なアドバイスではなく、あなたの家族の状況に沿った本音の話ができます。<br><br>
+      現在は会社経営にも携わりながら、年間100組超の家計・ライフプラン相談に対応しています。
+    </div>
+    <div class="profile-quote">
+      相談してよかった、と思っていただける60分にします。
+      売り込みは一切しません。ただ、一緒に考えさせてください。
+    </div>
+  </div>
+</section>
+
+<!-- ── PROMISE ─────────────────────── -->
+<section class="section fade-in">
+  <div class="section-label">📋 私たちの約束</div>
+  <h2 class="section-title">安心してご相談いただくために、<em>3つのお約束</em></h2>
+  <div class="divider"></div>
+  <div class="promise-list">
+    <div class="promise-card">
+      <div class="promise-num">1</div>
+      <div class="promise-text">
+        相談料は完全無料
+        <span>ご相談・アドバイスに一切費用はかかりません。まずは話してみてください。</span>
+      </div>
+    </div>
+    <div class="promise-card">
+      <div class="promise-num">2</div>
+      <div class="promise-text">
+        売り込み・勧誘は一切しません
+        <span>サービスの契約を迫ることはしません。あなたのペースで考えてください。</span>
+      </div>
+    </div>
+    <div class="promise-card">
+      <div class="promise-num">3</div>
+      <div class="promise-text">
+        個人情報は厳重に管理します
+        <span>ご相談内容を外部へ提供・売却することは絶対にありません。</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VOICE ───────────────────────── -->
+<section class="section fade-in">
+  <div class="section-label">💬 ご相談者の声</div>
+  <h2 class="section-title">「話して、<em>よかった</em>」</h2>
+  <div class="divider"></div>
+  <div class="voice-list">
+    <div class="voice-card">
+      <div class="voice-header">
+        <div class="voice-icon">👩</div>
+        <div class="voice-meta">
+          <div class="voice-who">60代 女性</div>
+          <div class="voice-where">金沢市在住</div>
+        </div>
+      </div>
+      <div class="voice-text">「遺言書のことを誰にも話せなかったけど、岡野さんには全部話せました。売り込みが全くなかったので、安心して来られました。」</div>
+    </div>
+    <div class="voice-card">
+      <div class="voice-header">
+        <div class="voice-icon">👦</div>
+        <div class="voice-meta">
+          <div class="voice-who">40代 男性</div>
+          <div class="voice-where">親御さんの終活を相談（親は能登在住）</div>
+        </div>
+      </div>
+      <div class="voice-text">「実家の片付けをどうするか、震災後ずっと悩んでいました。一緒に考えてもらえて、ようやく前に進めそうです。」</div>
+    </div>
+    <div class="voice-card">
+      <div class="voice-header">
+        <div class="voice-icon">👴</div>
+        <div class="voice-meta">
+          <div class="voice-who">70代 男性</div>
+          <div class="voice-where">加賀市在住</div>
+        </div>
+      </div>
+      <div class="voice-text">「子どもたちに迷惑をかけたくなくて。エンディングノートの書き方から、財産の整理まで親切に教えてもらえました。」</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SPACER ──────────────────────── -->
+<div style="height:24px;"></div>
+
+<!-- ── STICKY CTA ──────────────────── -->
+<div class="sticky-cta">
+  <a href="https://line.me/R/ti/p/@051wlfjw" class="cta-line">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.26 2 11.5c0 3.38 1.89 6.34 4.73 8.1L6 22l3.04-1.59c.94.26 1.94.4 2.96.4 5.52 0 10-4.26 10-9.5S17.52 2 12 2z"/></svg>
+    LINEで相談する
+  </a>
+  <a href="https://fuzigish0-prog.github.io/magokoro-lp/#form" class="cta-consult">
+    📋 無料相談フォーム
+  </a>
+</div>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
