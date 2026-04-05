@@ -102,7 +102,9 @@
     /* ======== HERO ======== */
     .hero {
       margin-top: calc(60px + env(safe-area-inset-top));
-      background: linear-gradient(135deg, #1A5C44 0%, #2D7A5F 40%, #3D9B78 100%);
+      background:
+        linear-gradient(135deg, rgba(26,92,68,0.82) 0%, rgba(45,122,95,0.78) 40%, rgba(61,155,120,0.72) 100%),
+        url('https://picsum.photos/seed/magokoro-hero/1200/800') center/cover no-repeat;
       position: relative;
       overflow: hidden;
       padding: 60px 20px 80px;
@@ -155,30 +157,6 @@
       color: rgba(255,255,255,0.88);
       margin-bottom: 28px;
       line-height: 1.9;
-    }
-    .hero-image-wrap {
-      position: relative;
-      max-width: 480px;
-      margin: 0 auto 32px;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-    }
-    .hero-image-wrap img {
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-      display: block;
-    }
-    .hero-image-caption {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.55));
-      color: white;
-      font-size: 12px;
-      padding: 24px 14px 12px;
-      text-align: left;
-      line-height: 1.6;
     }
     .hero-cta-wrap {
       display: flex;
@@ -894,12 +872,6 @@
       石川県の専門相談員が60分・完全無料でお聞きします。<br>
       売り込みは一切ありません。
     </p>
-    <!-- ※ 実際の施工・相談風景写真に差し替えてください -->
-    <div class="hero-image-wrap">
-      <img src="https://picsum.photos/seed/magokoro-hero/800/450" alt="まごころ相談所 相談風景">
-      <div class="hero-image-caption">石川県密着・年間100組以上の終活・相続相談に対応しています</div>
-    </div>
-
     <div class="hero-cta-wrap">
       <a href="https://line.me/R/ti/p/@051wlfjw" class="btn-primary">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.26 2 11.5c0 3.38 1.89 6.34 4.73 8.1L6 22l3.04-1.59c.94.26 1.94.4 2.96.4 5.52 0 10-4.26 10-9.5S17.52 2 12 2z"/></svg>
